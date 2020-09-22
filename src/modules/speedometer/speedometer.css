@@ -1,0 +1,75 @@
+@keyframes setSpeed{
+    from{
+        transform: rotate(var(--from, 0deg));
+    } to {
+        transform: rotate(var(--to, 100deg));
+    }
+}
+
+.circular-chart{
+    position: relative;
+    top: 4vh;
+    width: 80%;
+    height: 7.5vw;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .chart-footer{
+    position: relative;
+    width: 17.5vw;
+    height: 2vh;
+    margin: auto;
+    margin-top: 6vh;
+    margin-bottom: 1vh;
+    color: gray;
+    font-size: 0.9vw;
+  }
+  
+  .chart-footer .begin{float: left; margin-left: 1vw;}
+  .chart-footer .end{margin-left: 14vw;}
+  
+  .circular-chart .content{
+    position: absolute;
+    bottom: 0vh;
+    left: 1.65vw;
+    width: 15vw;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2vw;
+  }
+  
+  .semi-donut{
+    position: relative;
+    width: 15vw;
+    height: 15vw;
+    margin: auto;
+    background: linear-gradient(to bottom, rgb(69, 79, 81) 50%, rgb(1, 176, 117) 50%);
+    border-radius: 50%;
+  }
+  
+  .semi-donut::before{
+    content: '';
+    position: absolute;
+    top: 1.2vw;
+    left: 1.2vw;
+    right: 1.2vw;
+    bottom: 1.2vw;
+    background: rgb(37, 38, 41);
+    border-radius: 50%;
+    z-index: 1000;
+  }
+  
+  .semi-donut::after{
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: linear-gradient(to bottom, transparent, transparent 55%, rgb(1, 176, 117) 45%);
+    border-radius: 50%;
+    z-index: 1;
+    filter: blur(0.4vw);
+    
+  }

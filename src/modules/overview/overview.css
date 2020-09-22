@@ -1,0 +1,88 @@
+.card1{
+  width: 78vw;
+  height: 20vh;
+  margin: auto;
+  margin-top: 4.2vh;
+  background-color: rgb(32, 33, 37);
+  border-radius: 1.7vh;
+}
+
+.card2, .card3{
+  position: relative;
+  width: 85%;
+  margin-bottom: 3.5vh;
+  padding: 3vh 2vw;
+  background-color: rgb(37, 38, 41);
+  border-radius: 1.7vh;
+}
+
+.card2{
+  width: 92%;
+}
+
+.spacing{
+  width: 100%;
+  font-size: 0.8vw;
+  text-align: center;
+  margin-top: 3vh;
+}
+
+.colunas{
+  width: 78vw;
+  margin: auto;
+  margin-top: 3.5vh;
+}
+
+.colunas .coluna1 {
+  width: 65%;
+  float: left;
+}
+
+.colunas .coluna2{
+  margin-left: 67.5%;
+  width: 32.5%;
+}
+
+.card3 .list-acquisition{
+  margin-top: 3vh;
+  display: flex;
+}
+
+.card3 .list-acquisition .number{
+  background-color: gray;
+  width: 8%;
+  padding: 1%;
+  height: 2.6vh;
+  font-size: 0.8vw;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0.3vw;
+}
+
+.card3 .list-acquisition #dasName{
+  font-size: 0.9vw;
+  font-weight: bold;
+  margin-left: 1vw;
+  margin-bottom: 0.5vh;
+}
+
+.card3 .list-acquisition #lastTime{
+  font-size: 0.85vw;
+  margin-left: 1vw;
+  color: lightgray;
+}
+
+.card3 .list-acquisition button{
+  margin-left: 6.5vw;
+  color: rgb(1, 176, 117);
+  font-weight: bold;
+  font-size: 0.9vw;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.card3 .list-acquisition button:hover{
+  cursor: pointer;
+  text-shadow: 0px 0.3px 4px  rgb(1, 176, 117);
+}

@@ -1,0 +1,72 @@
+
+.sideMenu{
+    background-color: rgb(32, 33, 37);
+    width: 14vw;
+    height: 94vh;
+    padding: 3vh 1.5vw;
+    float: left;
+  }
+  
+  .bullet{
+    background-color: rgb(1, 176, 117);
+    box-shadow: 0 0 10px 0.5px rgb(1, 176, 117);
+    width: 4.5vh; height: 4.5vh;
+    border-radius: 100vw;
+    text-align: center;  
+    float: left;
+    margin-right: 8%;
+    margin-top: 2%;
+    font-size: 0.95vw;
+  }
+  
+  .bullet b{
+    position: relative;
+    top: 20%;
+  }
+  
+  .sideMenu .user{
+    color: white;
+    width: 100%;
+    margin-bottom: 5vh;
+    font-size: 1vw;
+  }
+  
+  .sideMenu .subtitle{
+    margin-bottom: 1vh;
+  }
+  
+  .sideMenu .user i{
+    font-size: 0.8vw;
+    color: lightgray;
+  }
+  
+  .sideMenu .menu button{
+    text-align: left;
+    padding-left: 3vw;
+    background: url('images/janela.png') no-repeat;
+    background-position: 0.5vw 1.3vh;
+    background-size: 1.8vh;
+    margin-bottom: 1.5vh;
+    color: white;
+    width: 100%;
+    height: 5.5vh;
+    border: 0;
+    border-radius: 0.8vh;
+    font-size: 0.95vw;
+    outline: none;
+  }
+  
+  .sideMenu #alert{background-image: url('images/notificacao.png'); background-size: 1.2vw;}
+  .sideMenu #fourierTransform{background-image: url('images/cardiaco.png'); background-size: 1.3vw;}
+  .sideMenu #exportCSV{background-image: url('images/compartilhar.png'); background-size: 1.1vw;}
+  
+  .sideMenu .menu button:hover{
+    cursor: pointer;
+    background-color: rgb(1, 176, 117);
+    box-shadow: 0 0 5px 0.5px rgb(1, 176, 117);
+    font-weight: bold;
+  }
+
+  .active{
+    background-color: blue;
+  }

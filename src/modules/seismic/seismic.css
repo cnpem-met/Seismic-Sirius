@@ -1,0 +1,70 @@
+.card4{
+    padding: 3vh 2vw;
+    margin: auto;
+    margin-top: 4.2vh;
+    background-color: rgb(32, 33, 37);
+    border-radius: 1.7vh;
+}
+
+.card4 input, .card4 select{
+    width: 85%;
+    height: 3.5vh;
+    padding: 2%;
+    border: none;
+    border-radius: 0.3vw;
+}
+
+.card4 select, .card4 option{
+    width: 89%;
+    height: 4.9vh;
+}
+
+.card4 .forms{
+    width: 100%;
+    text-align: center;
+}
+
+.title-input{
+    width: 85%;
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 0.5vh;
+    text-align: left;
+    font-size: 0.9vw;
+}
+
+.card4 button{
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    background-color: rgb(1, 176, 117);
+    box-shadow: 0 0 5px 0.5px rgb(1, 176, 117);
+    width: 4.5vw; 
+    height: 4.5vh;
+    font-size: 0.95vw;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.3vw;
+    outline: none;
+    cursor: pointer;
+}
+
+.card4 button:active{
+    box-shadow: 0 0 10px 0.5px rgb(1, 176, 117);
+}
+
+.colunas .coluna3{
+    width: 72%;
+    float: left;
+}
+  
+.colunas .coluna4{
+    margin-left: 74.5%;
+    width: 25.5%;
+}
+
+.card4 .description{
+    text-align: center;
+    margin-top: 3vh;
+    font-size: 0.95vw;
+}
