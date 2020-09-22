@@ -1,0 +1,16 @@
+npm WARN npm npm does not support Node.js v10.21.0
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+Lifecycle scripts included in seismic-sirius:
+  start
+    react-scripts start
+  test
+    react-scripts test
+
+available via `npm run-script`:
+  build
+    react-scripts build
+  eject
+    react-scripts eject

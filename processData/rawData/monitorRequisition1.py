@@ -1,0 +1,146 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jul 21 11:12:05 2020
+@author: leonardo.leao
+"""
+import os
+import time
+import obspy
+import threading
+
+name = ""
+
+def main():
+    monitor = monitorRequisition()
+    mseed = monitorMseedData()
+    raw = monitorRawData()
+    monitor.start()
+    mseed.start()
+    raw.start()
+    
+    while True:
+        bana = 1
+
+def buscaArquivos(caminho):
+    arquivos = set(os.listdir(caminho))
+    return arquivos
+
+class monitorRequisition(threading.Thread):
+    
+    #data[year, day, startTime, secondsToEndTime]
+    
+    def __init__(self):
+        super(monitorRequisition, self).__init__()
+        self.kill = threading.Event()
+        
+    def consultaData(self, data):
+        arcfetch = "/home/reftek/seismic-sirius/processData/rawData/arcfetch"
+        archiver = "/home/reftek/bin/archive"
+        parameters = "*,1,*,%s:%s:%s,+%s" % (data[0], data[1], data[2], data[3])
+        try:
+            os.system(arcfetch + " " + archiver + " " + parameters)
+            print("Consulta sísmica: OK!")
+        except:
+            print("Consulta sísmica: ERROR")
+        
+    def monitor(self):
+        caminho = "/opt/lampp/htdocs/api/data/requisition.txt"
+        if os.path.getsize(caminho) != 0:
+            with open(caminho) as file:
+                for line in file:
+                    global name
+                    name = line.replace(";", "")
+                    name = name.replace(":", "")
+                    name = name.replace("\n", "")
+                    parameters = line.replace("\n", "").split(";")
+                    self.consultaData(parameters)
+                
+            file = open(caminho, "w")
+            file.close()
+        
+    def run(self):
+        print("Iniciar monitoramento de consultas: OK!")
+        while not self.kill.is_set():
+            self.monitor()
+            time.sleep(0.5)
+
+
+class monitorRawData(threading.Thread):
+    
+    caminho = "/home/reftek/seismic-sirius/processData/rawData/"
+
+    def __init__(self):
+        super(monitorRawData, self).__init__()
+        self.kill = threading.Event()
+
+    def conversao(self, novoArquivo):
+        saida = "/home/reftek/seismic-sirius/processData/convertedData/"
+        for arquivo in novoArquivo:
+            entrada = self.caminho + arquivo
+            if ".RT" in entrada:
+                os.system(self.caminho + "pas2msd " + entrada +" -Ln -p " + saida); time.sleep(5)
+                print("Conversão de dados brutos: OK!")
+
+    def run(self):
+        print("Iniciar monitoramento de arquivos brutos: OK!")
+        conteudo = buscaArquivos(self.caminho)
+        while not self.kill.is_set():
+            novaBusca = buscaArquivos(self.caminho)
+            novoArquivo = novaBusca.difference(conteudo)
+            conteudo = novaBusca
+            if novoArquivo:
+                self.conversao(novoArquivo)
+            time.sleep(0.5)
+
+class monitorMseedData(threading.Thread):
+
+    def __init__(self):
+        super(monitorMseedData, self).__init__()
+        self.kill = threading.Event()
+
+    def formataDados(self, arquivo):
+        dadosSismicos = [];
+        caminho = "/home/reftek/seismic-sirius/processData/convertedData/" + arquivo
+        mseed = obspy.read(caminho)
+        for canal in mseed:
+            if canal.stats.npts > 0:
+                dadosSismicos.append(canal.times('timestamp'))
+                dadosSismicos.append(canal.data)
+                informacoesAquisicao = canal.stats
+                print("Conversão Mseed: OK!")
+        return (dadosSismicos, informacoesAquisicao)
+
+    def atualizaArquivo(self, dados, canal):
+        caminho = "/opt/lampp/htdocs/api/data/request/"+name+str(canal) +".txt"
+        saida = "/opt/lampp/htdocs/api/data/request/"+name+"_channel" + str(canal) + ".txt"
+        fp = open(caminho, "w")
+        os.system("chmod -R 777 " + caminho)
+        fp.write("channel\n")
+        for j in range(len(dados[1])):
+            fp.write("%s,%s\n" % (dados[0][j], dados[1][j]))
+        fp.close()
+        os.rename(caminho, saida)
+        print("Retorno de dados canal %d: OK!" % canal)
+
+    def run(self): # Enquanto a thread não está morta
+        print("Monitorar arquivos MSEED: OK!")
+        caminho = "/home/reftek/seismic-sirius/processData/convertedData/"
+        conteudo = buscaArquivos(caminho)
+        while not self.kill.is_set():
+            novaBusca = buscaArquivos(caminho)
+            novoArquivo = novaBusca.difference(conteudo)
+            conteudo = novaBusca
+            if novoArquivo:
+                time.sleep(2)
+                print("Novo arquivo encontrado: ", novoArquivo)
+                for arquivo in novoArquivo:
+                    if ".msd" in arquivo:
+                        dados, informacoesAquisicao = self.formataDados(arquivo)
+                        if informacoesAquisicao.channel == "HNZ": canal = 1
+                        if informacoesAquisicao.channel == "HNE": canal = 2
+                        if informacoesAquisicao.channel == "HNN": canal = 3
+                        self.atualizaArquivo(dados, canal)
+
+
+if __name__ == "__main__":
+    main()
